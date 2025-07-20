@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem
+            id="menu_purchase_requisition_root"
+            name="Purchase Requisition"
+            web_icon="om_purchase_requisition,static/description/Icon.png"
+            sequence="10"
+    />
+
+    <menuitem id="menu_purchase_requisition"
+              parent="menu_purchase_requisition_root"
+              name="Requisitions"
+              action="action_purchase_requisitions"
+              sequence="10"
+              />
+
+</odoo>

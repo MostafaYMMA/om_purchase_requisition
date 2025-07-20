@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="action_purchase_requisitions" model="ir.actions.act_window">
+        <field name="name">Requisitions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requisition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_purchase_requisitions_tree" model="ir.ui.view">
+        <field name="model">purchase.requisition</field>
+        <field name="name">purchase_requisitions_tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Name"/>
+                <field name="employee_id" string="Employee"/>
+                <field name="dept_id" string="Department"/>
+                <field name="requisition_date" string="Requisition Date"/>
+                <field name="state" string="State" widget="statusbar"/><!--To be looked into-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisitions_form" model="ir.ui.view">
+        <field name="model">purchase.requisition</field>
+        <field name="name">purchase_requisitions_form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                        <button name="submit_for_inventory" string="Submit for Inventory Approval"
+                                type="object" attrs="{'invisible' : [('state','!=','draft')]}"
+                                class="oe_highlight"/>
+
+                        <button name="submit_for_purchase" string="Submit for Purchase Approval"
+                                type="object" attrs="{'invisible' : [('state','!=','inventory_approval')]}"
+                                class="oe_highlight"/>
+
+                        <button name="confirm" string="Confirm"
+                                type="object" attrs="{'invisible' : [('state','!=','purchase_approval')]}"
+                                class="oe_highlight"/>
+
+                        <button name="mark_as_received" string="Mark as Received"
+                                type="object" attrs="{'invisible' : [('state','!=','confirmed')]}"
+                                class="oe_highlight"/>
+
+                        <field name="state" string="State" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name" string="Name"/>
+                            <field name="employee_id" string="Employee"/>
+                            <field name="responsible_id" string="Responsible Employee"/>
+                        </group>
+                        <group>
+                            <field name="dept_id" string="Department"/>
+                            <field name="requisition_date" string="Requisition Date"/>
+                            <field name="requisition_deadline" string="Requisition Deadline"/>
+                        </group>
+                        <notebook>
+                            <page string="Requisition Orders">
+                                <field name="requisition_line_ids" string="Lines IDs"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
